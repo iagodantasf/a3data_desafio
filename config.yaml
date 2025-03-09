@@ -1,0 +1,47 @@
+path_read:
+  books_rating: data/Books_rating.csv
+  books_data: data/books_data.csv
+
+col_renamer:
+  books_rating:
+    Id: id
+    Title: title
+    Price: price
+    User_id: user_id
+    profileName: profile_name
+  books_data:
+    Title: title
+    previewLink: preview_link
+    publishedDate: published_date
+    infoLink: info_link
+    ratingsCount: ratings_count
+
+useful_cols:
+  books_rating:
+    - title
+    - user_id
+    - score
+    - time
+    - summary
+    - text
+  books_data:
+    - title
+    - description
+    - authors
+    - categories
+
+drop_nan:
+  books_rating:
+    - title
+    - user_id
+  books_data:
+    - title
+
+fill_nan:
+  books_rating:
+    summary: ''
+    text: ''
+  books_data:
+    description: ''
+
+drop_eq_reviews_dif_time: True
