@@ -45,3 +45,4 @@ fill_nan:
     description: ''
 
 drop_eq_reviews_dif_time: True
+drop_text_above_quantile: 0.99
