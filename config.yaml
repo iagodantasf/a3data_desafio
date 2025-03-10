@@ -46,3 +46,16 @@ fill_nan:
 
 drop_eq_reviews_dif_time: True
 drop_text_above_quantile: 0.99
+
+score_agg_funcs:
+  - mean
+  - std
+  - count
+  - median
+  # - min
+  # - max
+
+scores_to_agg:
+  - score
+  - polarity
+  - subjectivity
