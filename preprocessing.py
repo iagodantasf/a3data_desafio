@@ -20,16 +20,26 @@ def preprocessed_books_rating(cfg: Dict[str, Any]) -> pd.DataFrame:
             .pipe(lambda x: x[x]).index
         )
         books_rating = books_rating.drop(idx_to_drop)
-    return (
+    books_rating = books_rating.drop(columns='time')
+    books_rating = (
         books_rating
         .groupby(['title', 'user_id']).agg({
             'score': 'mean',
-            'time': 'min',
             'summary': lambda x: '. '.join(x),
             'text': lambda x: '. '.join(x)
         })
         .reset_index()
     )
+    books_rating['full_text'] = (
+        books_rating['summary'] + '. ' + books_rating['text']
+    )
+    books_rating = books_rating.drop(columns=['summary', 'text'])
+    full_text_len = books_rating['full_text'].str.len()
+    max_full_text_len = (
+        full_text_len
+        .quantile(cfg['drop_text_above_quantile'])
+    )
+    return books_rating[full_text_len <= max_full_text_len]
 
 
 def preprocessed_books_data(cfg: Dict[str, Any]) -> pd.DataFrame:
